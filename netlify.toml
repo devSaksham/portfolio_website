@@ -1,0 +1,20 @@
+# Netlify configuration for the portfolio site.
+# No build step — this is a plain static site. These rules just set caching.
+# Works as-is when this folder is the site's base/publish directory.
+
+# Photos and icons rarely change: cache for 7 days.
+[[headers]]
+  for = "/*.jpg"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/*.png"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
+
+# Keep HTML always fresh so content edits show up immediately after a deploy.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

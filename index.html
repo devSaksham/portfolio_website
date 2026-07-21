@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saksham Agrawal — Software Engineer &amp; AI/ML Builder</title>
+  <meta name="description" content="Saksham Agrawal — Final-year CSE (AI/ML) student and aspiring software engineer. Full-stack AI systems, deep learning, and backend engineering." />
+
+  <!-- Favicon: "SA." wordmark — near-black text with a cyan accent dot, matching the theme -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2064'%3E%3Crect%20width='64'%20height='64'%20rx='14'%20fill='%23ffffff'/%3E%3Ctext%20x='30'%20y='46'%20text-anchor='middle'%20font-family='Arial,Helvetica,sans-serif'%20font-size='34'%20font-weight='700'%20fill='%230A0A0A'%3ESA%3Ctspan%20fill='%2300B8D4'%3E.%3C/tspan%3E%3C/text%3E%3C/svg%3E" />
+  <!-- Apple touch icon (home-screen): dark tile, white "SA" + cyan dot. 180x180 PNG beside index.html -->
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+  <!-- Fonts: Inter (display/UI) + JetBrains Mono (technical/labels) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS  —  stark high-contrast personal brand system
+       Black-on-white base, electric cyan accent, hard offset shadows.
+       ============================================================ */
+    :root {
+      /* Colors */
+      --primary:   #00B8D4;   /* electric cyan — emphasis + action only */
+      --ink:       #0A0A0A;   /* near-black — text, borders, framing */
+      --white:     #FFFFFF;   /* canvas */
+      --neutral:   #E5E7EB;   /* soft divider gray */
+      --muted:     #6B7280;   /* metadata, low-emphasis copy */
+      --overlay:   #111111;   /* dark bands (ticker/footer) */
+      --error:     #D92D20;
+
+      /* Spacing scale */
+      --xs: 6px; --sm: 14px; --md: 22px; --lg: 48px; --xl: 82px;
+      --gutter: 24px; --section: 96px;
+
+      /* The signature hard shadow */
+      --shadow: 6px 6px 0 var(--ink);
+      --shadow-sm: 4px 4px 0 var(--ink);
+      --maxw: 1160px;
+    }
+
+    /* ============================================================
+       RESET
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    ::selection { background: var(--primary); color: var(--ink); }
+
+    /* ============================================================
+       TYPOGRAPHY UTILITIES (mapped to the design spec)
+       ============================================================ */
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .label {
+      font-family: 'Inter', sans-serif; font-weight: 700;
+      font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .label-sm {
+      font-family: 'Inter', sans-serif; font-weight: 700;
+      font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    }
+    .mono-caps {
+      font-family: 'JetBrains Mono', monospace; font-weight: 600;
+      font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
+    }
+    h1, h2, h3 { font-family: 'Inter', sans-serif; }
+
+    .h-display {
+      font-weight: 800; font-size: clamp(40px, 7vw, 72px);
+      line-height: 1.02; letter-spacing: -0.02em; text-transform: uppercase;
+    }
+    .h-lg {
+      font-weight: 800; font-size: clamp(30px, 4.6vw, 46px);
+      line-height: 1.05; letter-spacing: -0.01em; text-transform: uppercase;
+    }
+    .h-md { font-weight: 700; font-size: clamp(22px, 3vw, 33px); line-height: 1.2; }
+    .h-sm { font-weight: 600; font-size: 23px; line-height: 1.22; }
+
+    .accent { color: var(--primary); }
+    .muted  { color: var(--muted); }
+
+    /* ============================================================
+       LAYOUT
+       ============================================================ */
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+    section { padding: var(--section) 0; }
+    .section-head {
+      display: flex; align-items: center; gap: var(--sm);
+      margin-bottom: var(--lg);
+    }
+    .section-head .bar { width: 42px; height: 4px; background: var(--primary); }
+
+    /* ============================================================
+       BUTTONS — square, bold, hard offset shadow
+       ============================================================ */
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      height: 48px; padding: 0 22px;
+      font-family: 'Inter', sans-serif; font-weight: 700;
+      font-size: 15px; letter-spacing: 0.06em; text-transform: uppercase;
+      border: 2px solid var(--ink); cursor: pointer;
+      transition: transform .12s ease, box-shadow .12s ease, background .12s ease, color .12s ease;
+      white-space: nowrap;
+    }
+    .btn-primary { background: var(--primary); color: var(--ink); box-shadow: var(--shadow-sm); }
+    .btn-primary:hover { background: var(--ink); color: var(--white); transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
+    .btn-secondary { background: var(--white); color: var(--ink); box-shadow: var(--shadow-sm); }
+    .btn-secondary:hover { background: var(--ink); color: var(--white); transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
+    .btn-ghost { background: transparent; border: 2px solid var(--ink); box-shadow: none; }
+    .btn-ghost:hover { background: var(--ink); color: var(--white); }
+
+    /* ============================================================
+       NAV
+       ============================================================ */
+    header.nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(255,255,255,0.92); backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--ink);
+    }
+    .nav-inner {
+      max-width: var(--maxw); margin: 0 auto; padding: 14px var(--gutter);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: -0.01em; }
+    .brand .mark {
+      width: 34px; height: 34px; display: grid; place-items: center;
+      background: var(--ink); color: var(--primary);
+      font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 15px;
+    }
+    .nav-links { display: flex; align-items: center; gap: var(--md); }
+    .nav-links a.navlink {
+      font-family: 'JetBrains Mono', monospace; font-weight: 600;
+      font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .nav-links a.navlink:hover { color: var(--primary); }
+    .nav-toggle { display: none; background: none; border: 2px solid var(--ink); width: 44px; height: 40px; cursor: pointer; font-size: 18px; }
+
+    /* ============================================================
+       HERO
+       ============================================================ */
+    .hero { padding-top: var(--xl); padding-bottom: var(--xl); }
+    .hero-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--lg); align-items: start; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 2px solid var(--ink); padding: 6px 12px; margin-bottom: var(--md);
+    }
+    .hero h1 { margin: 6px 0 var(--md); }
+    .hero p.lede {
+      font-family: 'JetBrains Mono', monospace; font-weight: 500;
+      font-size: 16px; line-height: 1.6; letter-spacing: 0.02em;
+      color: var(--ink); max-width: 52ch; margin-bottom: var(--lg);
+    }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: var(--sm); }
+
+    /* Engineer spec card */
+    .spec {
+      border: 2px solid var(--ink); background: var(--white);
+      box-shadow: var(--shadow);
+    }
+    .spec .spec-head {
+      background: var(--ink); color: var(--white);
+      padding: 12px 16px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .spec .spec-head .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 0 3px rgba(0,184,212,.25); }
+    .spec-row {
+      display: flex; justify-content: space-between; gap: var(--sm);
+      padding: 14px 16px; border-bottom: 1px solid var(--neutral);
+    }
+    .spec-row:last-child { border-bottom: 0; }
+    .spec-row .k { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+    .spec-row .v { font-weight: 700; text-align: right; font-size: 14px; }
+    .status-live { display: inline-flex; align-items: center; gap: 8px; }
+    .status-live .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); animation: pulse 1.6s infinite; }
+    @keyframes pulse { 0%,100%{ box-shadow: 0 0 0 0 rgba(0,184,212,.5);} 50%{ box-shadow: 0 0 0 5px rgba(0,184,212,0);} }
+
+    /* ============================================================
+       MARQUEE — tech stack ticker
+       ============================================================ */
+    .ticker { background: var(--overlay); color: var(--white); border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); overflow: hidden; padding: 16px 0; }
+    .ticker-track { display: flex; gap: 0; width: max-content; animation: scroll 34s linear infinite; }
+    .ticker:hover .ticker-track { animation-play-state: paused; }
+    .ticker-track .item {
+      display: inline-flex; align-items: center; gap: 22px; padding: 0 22px;
+      font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 15px;
+      letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap;
+    }
+    .ticker-track .item::after { content: "◆"; color: var(--primary); font-size: 10px; }
+    @keyframes scroll { from { transform: translateX(0);} to { transform: translateX(-50%);} }
+
+    /* ============================================================
+       CARDS / GRIDS
+       ============================================================ */
+    .grid { display: grid; gap: var(--md); }
+    .cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .card {
+      border: 2px solid var(--ink); background: var(--white);
+      padding: 22px; transition: transform .14s ease, box-shadow .14s ease;
+    }
+    .card.lift:hover { transform: translate(-3px,-3px); box-shadow: var(--shadow); }
+
+    /* Focus-area cards */
+    .focus .num { font-family: 'JetBrains Mono', monospace; color: var(--primary); font-weight: 700; font-size: 13px; letter-spacing: .1em; }
+    .focus h3 { margin: 10px 0 8px; text-transform: uppercase; letter-spacing: -0.01em; }
+
+    /* Coding profile + certification cards */
+    .profile { display: flex; flex-direction: column; gap: 18px; }
+    .profile .pf-top, .cert .pf-top { display: flex; align-items: center; justify-content: space-between; }
+    .profile .pf-arrow, .cert .pf-arrow { font-size: 18px; color: var(--muted); transition: color .12s ease, transform .12s ease; }
+    .profile.lift:hover .pf-arrow, .cert.lift:hover .pf-arrow { color: var(--primary); transform: translate(2px,-2px); }
+    .profile .pf-stat { display: flex; flex-direction: column; gap: 2px; }
+    .profile .pf-stat .big { font-family: 'Inter', sans-serif; font-weight: 800; font-size: clamp(30px, 4vw, 42px); line-height: 1; letter-spacing: -0.02em; }
+    .profile .pf-unit { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .profile .pf-handle, .cert .pf-handle { font-size: 13px; letter-spacing: .04em; color: var(--ink); border-top: 1px solid var(--neutral); padding-top: 12px; }
+
+    /* Project cards */
+    .project { display: flex; flex-direction: column; height: 100%; }
+    .project .p-top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sm); }
+    .project .p-index { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .16em; color: var(--muted); }
+    .project h3 { margin: 12px 0 10px; text-transform: uppercase; letter-spacing: -0.01em; font-size: clamp(20px, 2.4vw, 26px); }
+    .project p { color: var(--ink); margin-bottom: 14px; }
+    .project .result {
+      font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 13px;
+      color: var(--ink); background: var(--primary); display: inline-block;
+      padding: 4px 10px; margin-bottom: 16px; align-self: flex-start;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .tag {
+      font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border: 1px solid var(--ink); padding: 4px 9px;
+    }
+    .project .p-link { margin-top: auto; }
+    .project .p-link a { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; border-bottom: 2px solid var(--primary); padding-bottom: 2px; }
+    .project .p-link a:hover { color: var(--primary); }
+
+    /* ============================================================
+       EXPERIENCE / EDUCATION timeline rows
+       ============================================================ */
+    .entry { border-top: 2px solid var(--ink); padding: var(--md) 0; display: grid; grid-template-columns: 200px 1fr; gap: var(--md); }
+    .entry:last-child { border-bottom: 2px solid var(--ink); }
+    .entry .when { font-family: 'JetBrains Mono', monospace; font-size: 13px; letter-spacing: .06em; color: var(--muted); }
+    .entry h3 { font-size: 21px; text-transform: uppercase; letter-spacing: -0.01em; margin-bottom: 4px; }
+    .entry .org { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 14px; color: var(--primary); margin-bottom: 12px; }
+    .entry ul { list-style: none; display: grid; gap: 8px; }
+    .entry ul li { position: relative; padding-left: 20px; color: var(--ink); font-size: 15px; }
+    .entry ul li::before { content: "▸"; position: absolute; left: 0; color: var(--primary); }
+    .entry .skills { margin-top: 12px; }
+
+    /* ============================================================
+       METRICS (proof) — kept but commented out per request; styles retained
+       ============================================================ */
+    .metric { border: 2px solid var(--ink); padding: 22px; }
+    .metric .big { font-family: 'Inter', sans-serif; font-weight: 800; font-size: clamp(34px, 5vw, 52px); line-height: 1; letter-spacing: -0.02em; }
+    .metric .cap { margin-top: 10px; }
+
+    /* ============================================================
+       ABOUT
+       ============================================================ */
+    .about-grid { display: grid; grid-template-columns: 320px 1fr; gap: var(--lg); align-items: start; }
+    .photo-frame {
+      border: 2px solid var(--ink); box-shadow: var(--shadow);
+      aspect-ratio: 4/5; background: var(--neutral);
+      display: grid; place-items: center; overflow: hidden;
+    }
+    .photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-frame .ph { text-align: center; padding: 20px; color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .1em; }
+    .about-body p { font-size: 16px; line-height: 1.7; margin-bottom: var(--md); max-width: 60ch; }
+    .about-body p.big-quote { font-family: 'Inter', sans-serif; font-weight: 700; font-size: clamp(20px,2.6vw,28px); line-height: 1.3; letter-spacing: -0.01em; }
+
+    /* ============================================================
+       CONTACT
+       ============================================================ */
+    .contact { background: var(--overlay); color: var(--white); border-top: 2px solid var(--ink); }
+    .contact .btn-secondary { background: var(--white); }
+    .contact h2 { margin: var(--sm) 0 var(--md); }
+    .link-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border: 2px solid #2a2a2a; margin-top: var(--lg); }
+    .link-list a {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 18px 20px; border-bottom: 1px solid #2a2a2a; border-right: 1px solid #2a2a2a;
+      font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 14px; letter-spacing: .04em;
+      transition: background .12s ease, color .12s ease;
+    }
+    .link-list a > span:not(.arrow) { min-width: 0; overflow-wrap: anywhere; }
+    .link-list a .arrow { flex-shrink: 0; }
+    .link-list a:hover { background: var(--primary); color: var(--ink); }
+    .link-list a .plat { text-transform: uppercase; font-size: 12px; letter-spacing: .14em; color: var(--muted); }
+    .link-list a:hover .plat { color: var(--ink); }
+    .link-list a .arrow { color: var(--primary); }
+    .link-list a:hover .arrow { color: var(--ink); }
+
+    /* ============================================================
+       FOOTER
+       ============================================================ */
+    footer.site { background: var(--overlay); color: var(--white); border-top: 1px solid #2a2a2a; padding: var(--lg) 0; }
+    .foot-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sm); }
+    .foot-inner .mono-caps { color: var(--muted); }
+
+    /* ============================================================
+       REVEAL ANIMATION
+       ============================================================ */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .ticker-track { animation: none; }
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .photo-frame { max-width: 300px; }
+      .cols-4 { grid-template-columns: repeat(2, 1fr); }
+      .cols-3 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      :root { --section: 64px; --xl: 56px; }
+      .nav-links { position: fixed; inset: 66px 0 auto 0; background: var(--white); border-bottom: 2px solid var(--ink); flex-direction: column; align-items: stretch; gap: 0; padding: 0; transform: translateY(-120%); transition: transform .25s ease; }
+      .nav-links.open { transform: none; }
+      .nav-links a.navlink { padding: 16px var(--gutter); border-bottom: 1px solid var(--neutral); }
+      .nav-links .btn { margin: var(--sm) var(--gutter); justify-content: center; }
+      .nav-toggle { display: grid; place-items: center; }
+      .cols-2, .cols-3, .cols-4 { grid-template-columns: 1fr; }
+      .entry { grid-template-columns: 1fr; gap: 8px; }
+      .link-list { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================== NAV ============================== -->
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="#top" class="brand">
+        <span class="mark">SA</span>
+        <span>Saksham Agrawal</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a class="navlink" href="#work">Work</a>
+        <a class="navlink" href="#experience">Experience</a>
+        <a class="navlink" href="#about">About</a>
+        <a class="btn btn-primary" href="#contact">Let's Connect →</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============================== HERO ============================== -->
+    <section class="hero wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow mono-caps">Final-Year CSE · AI / ML</span>
+          <h1 class="h-display">
+            I build AI<br /><span class="accent">that ships.</span>
+          </h1>
+          <p class="lede">
+            Final-year Computer Science student and aspiring software engineer.
+            I build full-stack AI systems — FastAPI backends, deep-learning models,
+            and LLM/RAG pipelines — and take them from idea to something that actually runs.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#contact">Let's Connect →</a>
+            <a class="btn btn-secondary" href="#work">See the work ↓</a>
+          </div>
+        </div>
+
+        <!-- ENGINEER SPEC -->
+        <aside class="spec" aria-label="Engineer spec">
+          <div class="spec-head">
+            <span class="mono-caps">Engineer Spec</span>
+            <span class="dot" title="available"></span>
+          </div>
+          <div class="spec-row"><span class="k">Based</span><span class="v">Dehradun, Uttarakhand</span></div>
+          <div class="spec-row"><span class="k">CGPA</span><span class="v">8.7 / 10</span></div>
+          <div class="spec-row"><span class="k">Engage</span><span class="v">Freelance / Full-time</span></div>
+          <div class="spec-row"><span class="k">Stack</span><span class="v">Python · FastAPI · PyTorch</span></div>
+          <div class="spec-row"><span class="k">Status</span><span class="v"><span class="status-live"><span class="pulse"></span>Open to work</span></span></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============================== TECH MARQUEE ============================== -->
+    <div class="ticker" aria-hidden="true">
+      <!-- Duplicated track for a seamless loop -->
+      <div class="ticker-track">
+        <span class="item">Python</span><span class="item">Java</span><span class="item">Swing</span><span class="item">SQL</span><span class="item">C</span>
+        <span class="item">FastAPI</span><span class="item">REST APIs</span><span class="item">PyTorch</span><span class="item">scikit-learn</span>
+        <span class="item">Gemini API</span><span class="item">RAG</span><span class="item">NumPy</span><span class="item">pandas</span>
+        <span class="item">CNN</span><span class="item">GRU / LSTM</span><span class="item">KAN</span><span class="item">MySQL</span>
+        <span class="item">MongoDB</span><span class="item">PostgreSQL</span><span class="item">Vector Search</span><span class="item">Git</span>
+        <!-- copy -->
+        <span class="item">Python</span><span class="item">Java</span><span class="item">Swing</span><span class="item">SQL</span><span class="item">C</span>
+        <span class="item">FastAPI</span><span class="item">REST APIs</span><span class="item">PyTorch</span><span class="item">scikit-learn</span>
+        <span class="item">Gemini API</span><span class="item">RAG</span><span class="item">NumPy</span><span class="item">pandas</span>
+        <span class="item">CNN</span><span class="item">GRU / LSTM</span><span class="item">KAN</span><span class="item">MySQL</span>
+        <span class="item">MongoDB</span><span class="item">PostgreSQL</span><span class="item">Vector Search</span><span class="item">Git</span>
+      </div>
+    </div>
+
+    <!--
+    ============================================================
+      PROOF METRICS  —  commented out per request.
+      Uncomment this <section> to show the numbers.
+    ============================================================
+    <section class="wrap reveal">
+      <div class="section-head">
+        <span class="bar"></span>
+        <span class="label">Proof, not adjectives</span>
+      </div>
+      <div class="grid cols-4">
+        <div class="metric"><div class="big accent">89.68%</div><div class="cap"><strong>Vishing-detection accuracy</strong><br /><span class="muted mono" style="font-size:12px">PhoniX · deep learning</span></div></div>
+        <div class="metric"><div class="big accent">58.08%</div><div class="cap"><strong>HR@10 recommendation</strong><br /><span class="muted mono" style="font-size:12px">GRU + KAN hybrid</span></div></div>
+        <div class="metric"><div class="big accent">400+</div><div class="cap"><strong>LeetCode problems solved</strong><br /><span class="muted mono" style="font-size:12px">DSA · problem solving</span></div></div>
+        <div class="metric"><div class="big accent">8.69</div><div class="cap"><strong>CGPA / 10</strong><br /><span class="muted mono" style="font-size:12px">B.Tech CSE (AI/ML)</span></div></div>
+      </div>
+    </section>
+    -->
+
+    <!-- ============================== WHAT I DO ============================== -->
+    <section class="wrap reveal" id="focus">
+      <div class="section-head">
+        <span class="bar"></span>
+        <span class="label">What I do</span>
+      </div>
+      <div class="grid cols-4">
+        <div class="card focus lift">
+          <div class="num">01</div>
+          <h3 class="h-sm">Full-Stack AI</h3>
+          <p class="muted">End-to-end AI apps — FastAPI backends, LLM/RAG pipelines, and clean, usable frontends.</p>
+        </div>
+        <div class="card focus lift">
+          <div class="num">02</div>
+          <h3 class="h-sm">Deep Learning</h3>
+          <p class="muted">Designing, training, and benchmarking models from scratch — CNNs, GRU/LSTM, and KAN.</p>
+        </div>
+        <div class="card focus lift">
+          <div class="num">03</div>
+          <h3 class="h-sm">Backend &amp; APIs</h3>
+          <p class="muted">FastAPI, REST, relational &amp; vector databases — built with production in mind.</p>
+        </div>
+        <div class="card focus lift">
+          <div class="num">04</div>
+          <h3 class="h-sm">LLM / GenAI</h3>
+          <p class="muted">Gemini API, structured outputs, and RAG grounding to cut hallucination in real apps.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== SELECTED WORK ============================== -->
+    <section class="wrap reveal" id="work">
+      <div class="section-head">
+        <span class="bar"></span>
+        <span class="label">Selected work</span>
+      </div>
+      <div class="grid cols-2">
+
+        <!-- JobGenie (formerly CareerOS) -->
+        <article class="card project lift">
+          <div class="p-top">
+            <span class="p-index">PROJECT 01</span>
+            <span class="mono-caps accent">Live</span>
+          </div>
+          <h3>JobGenie</h3>
+          <p>AI-powered job-search &amp; application assistant. A full-stack AI copilot with a FastAPI backend and Gemini API for resume parsing, ATS-score simulation, and job-description matching — plus a RAG pipeline that grounds LLM outputs to reduce hallucination in match scoring, an LLM analytics dashboard, multi-resume A/B testing, and interview tracking.</p>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">Gemini API</span><span class="tag">RAG</span><span class="tag">JavaScript</span>
+          </div>
+          <div class="p-link"><a href="https://jobgenie.tech" target="_blank" rel="noopener">Visit jobgenie.tech →</a></div>
+        </article>
+
+        <!-- PhoniX -->
+        <article class="card project lift">
+          <div class="p-top">
+            <span class="p-index">PROJECT 02</span>
+            <span class="mono-caps accent">5th · Hackathon</span>
+          </div>
+          <h3>PhoniX</h3>
+          <p>AI-powered vishing (voice-phishing) detection system. A real-time dialer that classifies live audio streams to flag phishing calls, backed by a deep-learning pipeline that distinguishes authentic human speech from deepfake-generated audio using spectrogram feature extraction.</p>
+          <div class="result">89.68% accuracy · 5th place, CSA Hackathon 3.0</div>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">Audio Processing</span><span class="tag">Deep Learning</span>
+          </div>
+          <!-- TODO: add repo/demo link when ready -->
+          <div class="p-link"><a href="#" rel="noopener">Add link →</a></div>
+        </article>
+
+        <!-- Recommendation System -->
+        <article class="card project lift">
+          <div class="p-top">
+            <span class="p-index">PROJECT 03</span>
+            <span class="mono-caps muted">Research</span>
+          </div>
+          <h3>Session-Based Recommender</h3>
+          <p>A next-item recommendation engine on sequential clickstream data (YooChoose, 50K sessions / 128K+ samples). Implemented and benchmarked three architectures from scratch — GRU baseline, pure recurrent KAN, and a hybrid GRU+KAN using learnable B-spline activations for better interpretability.</p>
+          <div class="result">58.08% HR@10 · 39.42% NDCG@10</div>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">GRU + KAN</span><span class="tag">Deep Learning</span>
+          </div>
+          <!-- TODO: add repo/demo link when ready -->
+          <div class="p-link"><a href="#" rel="noopener">Add link →</a></div>
+        </article>
+
+        <!-- Launch Cadence -->
+        <article class="card project lift">
+          <div class="p-top">
+            <span class="p-index">PROJECT 04</span>
+            <span class="mono-caps muted">Open Source</span>
+          </div>
+          <h3>Launch Cadence</h3>
+          <p>A rocket launch management and booking system — scheduling, management, and booking workflows for launches, built end-to-end.</p>
+          <!-- TODO: confirm exact tech stack -->
+          <div class="tags">
+            <span class="tag">Full-Stack</span><span class="tag">Booking System</span>
+          </div>
+          <div class="p-link"><a href="https://github.com/devSaksham/Rocket-Launch-Management-and-Booking-System" target="_blank" rel="noopener">View on GitHub →</a></div>
+        </article>
+
+        <!-- Library Management System (Java Swing) -->
+        <article class="card project lift">
+          <div class="p-top">
+            <span class="p-index">PROJECT 05</span>
+            <span class="mono-caps muted">Desktop App</span>
+          </div>
+          <h3>Library Management System</h3>
+          <p>A desktop library-management application built with Java Swing — a GUI for managing books, members, and issue/return workflows, backed by a relational database.</p>
+          <div class="tags">
+            <span class="tag">Java</span><span class="tag">Swing</span><span class="tag">SQL</span><span class="tag">Desktop GUI</span>
+          </div>
+          <div class="p-link"><a href="https://github.com/Abhishek15082002/Library-Management-Sytem-Swing" target="_blank" rel="noopener">View on GitHub →</a></div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============================== EXPERIENCE ============================== -->
+    <section class="wrap reveal" id="experience">
+      <div class="section-head">
+        <span class="bar"></span>
+        <span class="label">Experience</span>
+      </div>
+
+      <div class="entry">
+        <div class="when">Jun – Jul 2024</div>
+        <div>
+          <h3>Social Intern</h3>
+          <div class="org">Gram Rajya Vikas Evam Prashikshan Sansthan</div>
+          <ul>
+            <li>Assisted legal authorities in more than 5 rescue and rehabilitation operations related to child-labour cases.</li>
+            <li>Supported more than 20 interventions under child protection and POCSO regulations.</li>
+          </ul>
+          <div class="skills">
+            <div class="tags">
+              <span class="tag">Field Coordination</span><span class="tag">Documentation</span><span class="tag">Community Engagement</span><span class="tag">Teamwork</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== EDUCATION ============================== -->
+    <section class="wrap reveal" id="education">
+      <div class="section-head">
+        <span class="bar"></span>
+        <span class="label">Education</span>
+      </div>
+
+      <div class="entry">
+        <div class="when">2023 – Present</div>
+        <div>
+          <h3>B.Tech, Computer Science &amp; Engineering (AI/ML)</h3>
+          <div class="org">UPES · CGPA 8.69 / 10</div>
+          <p class="muted" style="font-size:14px;line-height:1.6">
+            Relevant coursework: Machine Learning · Pattern &amp; Visual Recognition · Deep Learning ·
+            Data Structures &amp; Algorithms · Database Management Systems · Operating Systems.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================== CODING PROFILES ============================== -->
+    <section class="wrap reveal" id="profiles">
+      <div class="section-head">
+        <span class="bar"></span>
+        <span class="label">Coding Profiles</span>
+      </div>
+      <div class="grid cols-2">
+
+        <!-- LeetCode -->
+        <a class="card profile lift" href="https://leetcode.com/u/Sakshamm_codes/" target="_blank" rel="noopener">
+          <div class="pf-top">
+            <span class="mono-caps">LeetCode</span>
+            <span class="pf-arrow">↗</span>
+          </div>
+          <div class="pf-stat"><span class="big accent">400+</span><span class="pf-unit">problems solved</span></div>
+          <div class="pf-handle mono">@Sakshamm_codes</div>
+        </a>
+
+        <!-- GitHub -->
+        <a class="card profile lift" href="https://github.com/devSaksham" target="_blank" rel="noopener">
+          <div class="pf-top">
+            <span class="mono-caps">GitHub</span>
+            <span class="pf-arrow">↗</span>
+          </div>
+          <div class="pf-stat"><span class="big accent">AI / ML</span><span class="pf-unit">projects &amp; open source</span></div>
+          <div class="pf-handle mono">@devSaksham</div>
+        </a>
+
+        <!-- Codeforces — kept for the future, uncomment to show
+             (then switch the grid above from cols-2 to cols-3). -->
+        <!--
+        <a class="card profile lift" href="https://codeforces.com/profile/agrawalsaksham14.6" target="_blank" rel="noopener">
+          <div class="pf-top">
+            <span class="mono-caps">Codeforces</span>
+            <span class="pf-arrow">↗</span>
+          </div>
+          <div class="pf-stat"><span class="big accent">&mdash;</span><span class="pf-unit">competitive rating</span></div>
+          <div class="pf-handle mono">@agrawalsaksham14.6</div>
+        </a>
+        -->
+
+      </div>
+    </section>
+
+    <!-- ============================== LEADERSHIP / EXTRACURRICULAR ============================== -->
+    <section class="wrap reveal" id="leadership">
+      <div class="section-head">
+        <span class="bar"></span>
+        <span class="label">Leadership &amp; Extracurricular</span>
+      </div>
+
+      <div class="entry">
+        <div class="when">2025 – 2026</div>
+        <div>
+          <h3>President · Registrations Head</h3>
+          <div class="org">Cloud Security Alliance (CSA), UPES</div>
+          <ul>
+            <li>Lead the UPES CSA chapter, directing cross-functional technical, event-management, and communications teams on community-wide cloud-security initiatives.</li>
+            <li>Managed end-to-end registration workflows for a 400+ participant event as Registrations Head, coordinating onboarding across teams to cut process bottlenecks.</li>
+            <li>Drove outreach initiatives that grew measurable community engagement around cloud-security awareness.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="entry">
+        <div class="when">Achievement</div>
+        <div>
+          <h3>5th Place · CSA Hackathon 3.0</h3>
+          <div class="org">UPES</div>
+          <ul>
+            <li>Recognised for innovation in AI-driven cybersecurity solutions (PhoniX project).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!--
+    ============================================================
+      CERTIFICATIONS  —  template, commented out.
+      Uncomment this <section> and fill in real certs to show it.
+      Duplicate a .cert card per certification.
+    ============================================================
+    <section class="wrap reveal" id="certifications">
+      <div class="section-head">
+        <span class="bar"></span>
+        <span class="label">Certifications</span>
+      </div>
+      <div class="grid cols-3">
+
+        <a class="card cert lift" href="CERT_URL_HERE" target="_blank" rel="noopener">
+          <div class="pf-top">
+            <span class="mono-caps">Issuer / Platform</span>
+            <span class="pf-arrow">↗</span>
+          </div>
+          <h3 class="h-sm" style="margin:14px 0 8px;text-transform:uppercase;letter-spacing:-0.01em">Certification Title</h3>
+          <p class="muted" style="font-size:14px">One line on what it covers / credential ID.</p>
+          <div class="pf-handle mono" style="margin-top:14px">Issued 20XX</div>
+        </a>
+
+        <a class="card cert lift" href="CERT_URL_HERE" target="_blank" rel="noopener">
+          <div class="pf-top">
+            <span class="mono-caps">Issuer / Platform</span>
+            <span class="pf-arrow">↗</span>
+          </div>
+          <h3 class="h-sm" style="margin:14px 0 8px;text-transform:uppercase;letter-spacing:-0.01em">Certification Title</h3>
+          <p class="muted" style="font-size:14px">One line on what it covers / credential ID.</p>
+          <div class="pf-handle mono" style="margin-top:14px">Issued 20XX</div>
+        </a>
+
+        <a class="card cert lift" href="CERT_URL_HERE" target="_blank" rel="noopener">
+          <div class="pf-top">
+            <span class="mono-caps">Issuer / Platform</span>
+            <span class="pf-arrow">↗</span>
+          </div>
+          <h3 class="h-sm" style="margin:14px 0 8px;text-transform:uppercase;letter-spacing:-0.01em">Certification Title</h3>
+          <p class="muted" style="font-size:14px">One line on what it covers / credential ID.</p>
+          <div class="pf-handle mono" style="margin-top:14px">Issued 20XX</div>
+        </a>
+
+      </div>
+    </section>
+    -->
+    <!-- .cert reuses .profile card styles (pf-top / pf-arrow / pf-handle). No extra CSS needed. -->
+
+
+    <!-- ============================== ABOUT ============================== -->
+    <section class="wrap reveal" id="about">
+      <div class="section-head">
+        <span class="bar"></span>
+        <span class="label">Who you'd be working with</span>
+      </div>
+      <div class="about-grid">
+        <div class="photo-frame">
+          <img src="saksham.jpg" alt="Saksham Agrawal" />
+        </div>
+        <div class="about-body">
+          <p class="big-quote">I don't like leaving ideas as ideas. If I can imagine it, I want to build it.</p>
+          <p>
+            I'm a final-year Computer Science (AI &amp; ML) student at UPES who enjoys turning concepts into
+            real products. From training machine learning models and building FastAPI backends to integrating
+            LLMs with RAG, I love working across the entire stack. Whether it's JobGenie or my latest experiment,
+            I'm always chasing the next problem worth solving.
+          </p>
+          <p>
+            Outside of building, you'll usually find me solving DSA, exploring new technologies, or figuring out
+            how to make software just a little smarter.
+          </p>
+          <a class="btn btn-primary" href="#contact" style="margin-top:8px">Let's Connect →</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================== CONTACT ============================== -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="bar"></span>
+        <span class="label" style="color:#fff">Let's talk</span>
+      </div>
+      <h2 class="h-lg">Have something that needs<br />to be built?</h2>
+      <p class="mono" style="color:#cfcfcf;max-width:56ch;margin-top:14px;font-size:15px;line-height:1.6">
+        Open to freelance and full-time opportunities. Reach out about a role, a project,
+        or just to talk shop — I read everything myself.
+      </p>
+
+      <div class="hero-cta" style="margin-top:32px">
+        <a class="btn btn-primary" href="mailto:reach.saksham.agrawal@gmail.com">Email me →</a>
+        <button class="btn btn-secondary" id="copyEmail" type="button"
+                data-email="reach.saksham.agrawal@gmail.com" aria-live="polite">Copy email ⧉</button>
+      </div>
+
+      <!-- Social / profile links. Replace any "#" placeholders as needed. -->
+      <div class="link-list">
+        <a href="mailto:reach.saksham.agrawal@gmail.com">
+          <span><span class="plat">Email</span><br />reach.saksham.agrawal@gmail.com</span>
+          <span class="arrow">→</span>
+        </a>
+        <a href="https://www.linkedin.com/in/sakshamhere/" target="_blank" rel="noopener">
+          <span><span class="plat">LinkedIn</span><br />in/sakshamhere</span>
+          <span class="arrow">→</span>
+        </a>
+        <a href="https://github.com/devSaksham" target="_blank" rel="noopener">
+          <span><span class="plat">GitHub</span><br />devSaksham</span>
+          <span class="arrow">→</span>
+        </a>
+        <a href="https://leetcode.com/u/Sakshamm_codes/" target="_blank" rel="noopener">
+          <span><span class="plat">LeetCode · 400+ solved</span><br />Sakshamm_codes</span>
+          <span class="arrow">→</span>
+        </a>
+        <!-- Codeforces — kept for the future, uncomment to show:
+        <a href="https://codeforces.com/profile/agrawalsaksham14.6" target="_blank" rel="noopener">
+          <span><span class="plat">Codeforces</span><br />agrawalsaksham14.6</span>
+          <span class="arrow">→</span>
+        </a>
+        -->
+        <!-- TODO: add a resume-download link here when ready -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== FOOTER ============================== -->
+  <footer class="site">
+    <div class="wrap foot-inner">
+      <span class="mono-caps">© <span id="year"></span> Saksham Agrawal</span>
+      <span class="mono-caps">Built in Dehradun, IN</span>
+    </div>
+  </footer>
+
+  <script>
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => links.classList.toggle('open'));
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+    // Copy email to clipboard (hybrid with the mailto: button)
+    const copyBtn = document.getElementById('copyEmail');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        const email = copyBtn.dataset.email;
+        let ok = false;
+        try {
+          await navigator.clipboard.writeText(email);
+          ok = true;
+        } catch (e) {
+          // Fallback for non-secure contexts / older browsers
+          const ta = document.createElement('textarea');
+          ta.value = email; ta.style.position = 'fixed'; ta.style.opacity = '0';
+          document.body.appendChild(ta); ta.select();
+          try { ok = document.execCommand('copy'); } catch (_) { ok = false; }
+          document.body.removeChild(ta);
+        }
+        copyBtn.textContent = ok ? 'Copied ✓' : 'Press Ctrl+C';
+        clearTimeout(copyBtn._t);
+        copyBtn._t = setTimeout(() => { copyBtn.textContent = 'Copy email ⧉'; }, 2000);
+      });
+    }
+
+    // Scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>
