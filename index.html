@@ -94,7 +94,9 @@
     /* ============================================================
        LAYOUT
        ============================================================ */
-    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 var(--gutter); }
+    /* Only horizontal padding here so it doesn't clobber `section`'s vertical padding
+       on elements that are both <section> and .wrap. */
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
     section { padding: var(--section) 0; }
     .section-head {
       display: flex; align-items: center; gap: var(--sm);
