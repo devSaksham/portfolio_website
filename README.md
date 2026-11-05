@@ -1,35 +1,32 @@
 # Portfolio Website
 
-Personal portfolio site for **Saksham Agrawal** — final-year CSE (AI/ML) student and aspiring software engineer, showcasing full-stack AI systems, deep learning, and backend engineering work. Deployed on Netlify.
+The site behind **[sakshamagrawal.me](https://sakshamagrawal.me)**: my main portfolio, with projects, experience, skills and contact links.
 
-## About
+It's a single `index.html` with inlined CSS and a little JavaScript. The design is high-contrast black on white with an electric-cyan accent and hard offset shadows, set in Inter and JetBrains Mono.
 
-A single-page, dependency-free portfolio (`index.html`) with a stark, high-contrast black-on-white design, an electric-cyan accent, and hard offset shadows.
-
-## Highlights
-
-- Bold, high-contrast personal brand design system (black/white base, cyan accent)
-- Fully responsive, single HTML file with all CSS inlined
-- Custom SVG favicon + Apple touch icon
-- Fonts: Inter (UI/display) + JetBrains Mono (technical/labels)
-
-## Tech
-
-Plain HTML5 + CSS3, no frameworks or build tooling. Deployed via [Netlify](https://www.netlify.com/) (see `netlify.toml`).
-
-## Running locally
+## Run locally
 
 ```bash
 git clone https://github.com/devSaksham/portfolio_website.git
 cd portfolio_website
 ```
 
-Then open `index.html` directly in your browser — no server or build step required.
+Open `index.html` in a browser. There's nothing to install or build.
 
 ## Deployment
 
-This site auto-deploys to Netlify from this repository (configuration in `netlify.toml`).
+Netlify deploys the repo root on every push to `main`. `netlify.toml` only sets cache headers: images are cached for 7 days and HTML is always revalidated, so content edits show up straight after a deploy.
 
-## Related
+## Files
 
-See [`portfolio_website_college`](https://github.com/devSaksham/portfolio_website_college) for an alternate dark-themed version of this site.
+```
+index.html             the site
+saksham.jpg            profile photo
+apple-touch-icon.png   home-screen icon
+netlify.toml           cache headers
+```
+
+## Other versions
+
+- [Portfolius](https://github.com/devSaksham/portfolius): the same content as an interactive Hogwarts-themed site
+- [saksham-agrawal](https://github.com/devSaksham/saksham-agrawal): an earlier dark, terminal-style version
