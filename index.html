@@ -311,6 +311,14 @@
     footer.site { background: var(--overlay); color: var(--white); border-top: 1px solid #2a2a2a; padding: var(--lg) 0; }
     .foot-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--sm); }
     .foot-inner .mono-caps { color: var(--muted); }
+    /* link to the Hogwarts portfolio (Portfolius): the one cyan action in the footer */
+    .foot-inner .magic-link { color: var(--primary); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid transparent; transition: border-color .2s; }
+    .foot-inner .magic-link:hover, .foot-inner .magic-link:focus-visible { border-bottom-color: var(--primary); }
+    .magic-link .spark { display: inline-block; transition: transform .4s ease; }
+    .magic-link:hover .spark, .magic-link:focus-visible .spark { transform: rotate(180deg) scale(1.25); }
+    .magic-link .arr { transition: transform .2s ease; }
+    .magic-link:hover .arr, .magic-link:focus-visible .arr { transform: translateX(3px); }
+    @media (prefers-reduced-motion: reduce) { .magic-link .spark, .magic-link .arr { transition: none; } }
 
     /* ============================================================
        REVEAL ANIMATION
@@ -832,6 +840,7 @@
   <footer class="site">
     <div class="wrap foot-inner">
       <span class="mono-caps">© <span id="year"></span> Saksham Agrawal</span>
+      <a class="mono-caps magic-link" href="https://devsaksham.github.io/portfolius/" target="_blank" rel="noopener me">Wanna see the magic? <span class="spark" aria-hidden="true">✦</span> <span class="arr" aria-hidden="true">→</span></a>
       <span class="mono-caps">Built in Dehradun, IN</span>
     </div>
   </footer>
