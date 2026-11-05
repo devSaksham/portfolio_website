@@ -28,5 +28,5 @@ netlify.toml           cache headers
 
 ## Other versions
 
-- [hogwarts-portfolio](https://github.com/devSaksham/hogwarts-portfolio): the same content as an interactive Hogwarts-themed site
+- [Portfolius](https://github.com/devSaksham/portfolius): the same content as an interactive Hogwarts-themed site
 - [saksham-agrawal](https://github.com/devSaksham/saksham-agrawal): an earlier dark, terminal-style version
